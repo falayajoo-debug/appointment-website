@@ -1,0 +1,1142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Your Appointment</title>
+
+<style>
+:root {
+    --accent: #9b5575;
+    --soft: #f8eff3;
+    --ink: #29252a;
+    --muted: #746c73;
+    --white: #ffffff;
+    --border: #eadde4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--soft);
+    color: var(--ink);
+}
+
+header {
+    text-align: center;
+    padding: 35px 20px 25px;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 18px;
+}
+
+header h1 {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 0 10px;
+}
+
+header p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 15px;
+}
+
+.container {
+    width: 92%;
+    max-width: 680px;
+    margin: 15px auto 45px;
+    background: var(--white);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(50, 25, 40, 0.07);
+}
+
+.section-title {
+    font-size: 21px;
+    margin: 0 0 22px;
+    font-weight: 600;
+}
+
+.service-card {
+    background: var(--soft);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.service-name {
+    font-weight: 600;
+}
+
+.service-price {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 18px 0 8px;
+}
+
+input,
+select {
+    display: block;
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 15px;
+    font-family: inherit;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(155, 85, 117, 0.12);
+}
+
+.primary-button {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.primary-button:hover {
+    background: #81415f;
+}
+
+.primary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.message {
+    display: none;
+    margin-top: 16px;
+    padding: 13px;
+    border-radius: 7px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.message.success {
+    display: block;
+    background: #e9f5eb;
+    color: #276334;
+}
+
+.message.error {
+    display: block;
+    background: #fcecec;
+    color: #a12626;
+}
+
+footer {
+    text-align: center;
+    padding: 15px 20px 35px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* HOURGLASS ADMIN BUTTON */
+
+.admin-trigger {
+    display: block;
+    margin: 0 auto 15px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(50, 25, 40, 0.15);
+}
+
+.admin-trigger:hover {
+    background: #81415f;
+}
+
+/* ADMIN MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(30, 20, 27, 0.55);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 470px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 13px;
+    padding: 27px;
+}
+
+.modal-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.modal-heading h2 {
+    font-size: 21px;
+    margin: 0;
+}
+
+.close-button {
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.admin-description {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.admin-button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.admin-button:hover {
+    background: #81415f;
+}
+
+.secondary-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 7px;
+    background: var(--soft);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.date-list {
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.date-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.date-row:last-child {
+    border-bottom: none;
+}
+
+.remove-button {
+    border: none;
+    background: transparent;
+    color: #b13c4c;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.admin-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 12px;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding-top: 25px;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+
+    .logo {
+        width: 125px;
+        height: 125px;
+    }
+
+    .container {
+        padding: 23px;
+    }
+
+    .modal-content {
+        padding: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img
+        src="images/business-logo.png"
+        alt="PP Business Logo"
+        class="logo"
+        onerror="this.style.display='none'"
+    >
+
+    <h1>Book Your Appointment</h1>
+    <p>We look forward to welcoming you.</p>
+</header>
+
+<main class="container">
+
+    <h2 class="section-title">Appointment Details</h2>
+
+    <div class="service-card">
+        <span class="service-name">Braid</span>
+        <span class="service-price">$60</span>
+    </div>
+
+    <form id="bookingForm">
+
+        <label for="customerName">Full Name</label>
+        <input
+            type="text"
+            id="customerName"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+        >
+
+        <label for="customerEmail">Email Address</label>
+        <input
+            type="email"
+            id="customerEmail"
+            placeholder="Enter your email address"
+            autocomplete="email"
+            required
+        >
+
+        <label for="customerPhone">Phone Number</label>
+        <input
+            type="tel"
+            id="customerPhone"
+            placeholder="Enter your phone number"
+            autocomplete="tel"
+            required
+        >
+
+        <label for="appointmentDate">Available Appointment Date</label>
+        <select id="appointmentDate" required>
+            <option value="">Loading available dates...</option>
+        </select>
+
+        <button
+            type="submit"
+            class="primary-button"
+            id="bookingButton"
+        >
+            Confirm Appointment
+        </button>
+
+        <div
+            id="bookingMessage"
+            class="message"
+            role="status"
+        ></div>
+
+    </form>
+
+</main>
+
+<!-- HOURGLASS ADMIN ACCESS -->
+
+<button
+    type="button"
+    class="admin-trigger"
+    id="adminTrigger"
+    aria-label="Manage availability"
+    title="Manage availability"
+>
+    ⌛
+</button>
+
+<footer>
+    <p>For enquiries, contact us</p>
+    <a href="tel:7809325458">780 932 5458</a>
+</footer>
+
+<!-- ADMIN WINDOW -->
+
+<div class="modal" id="adminModal">
+
+    <div class="modal-content">
+
+        <div class="modal-heading">
+            <h2>Manage Availability</h2>
+
+            <button
+                type="button"
+                class="close-button"
+                id="closeAdmin"
+                aria-label="Close"
+            >
+                &times;
+            </button>
+        </div>
+
+        <section id="loginSection">
+
+            <p class="admin-description">
+                Enter your administrator access code to manage available appointment dates.
+            </p>
+
+            <label for="adminCode">Access Code</label>
+
+            <input
+                type="password"
+                id="adminCode"
+                placeholder="Enter access code"
+                autocomplete="off"
+            >
+
+            <button
+                type="button"
+                class="admin-button"
+                id="verifyAdmin"
+            >
+                Verify Access
+            </button>
+
+            <div
+                id="loginMessage"
+                class="message"
+                role="status"
+            ></div>
+
+        </section>
+
+        <section id="availabilitySection" style="display:none;">
+
+            <p class="admin-description">
+                Select the dates you want customers to be able to book.
+                You can add several dates and save them together.
+            </p>
+
+            <label for="newAvailableDate">Select Available Date</label>
+
+            <input
+                type="date"
+                id="newAvailableDate"
+            >
+
+            <button
+                type="button"
+                class="admin-button"
+                id="addDate"
+            >
+                Add Date
+            </button>
+
+            <h3>Available Dates</h3>
+
+            <div class="date-list" id="dateList">
+                No dates added.
+            </div>
+
+            <button
+                type="button"
+                class="admin-button"
+                id="saveDates"
+            >
+                Save Available Dates
+            </button>
+
+            <button
+                type="button"
+                class="secondary-button"
+                id="logoutAdmin"
+            >
+                Log Out
+            </button>
+
+            <p class="admin-note">
+                Changes are saved to your appointment booking server.
+            </p>
+
+            <div
+                id="saveMessage"
+                class="message"
+                role="status"
+            ></div>
+
+        </section>
+
+    </div>
+
+</div>
+
+<script>
+/* ==========================================
+   BACKEND CONNECTION
+========================================== */
+
+const API_BASE_URL =
+    "https://appointment-booking-backend-x0j2.onrender.com";
+
+let adminCodeValue = "";
+let adminDates = [];
+
+/* ==========================================
+   API REQUEST FUNCTION
+========================================== */
+
+async function apiRequest(endpoint, options = {}) {
+
+    const response = await fetch(
+        API_BASE_URL + endpoint,
+        {
+            ...options,
+            headers: {
+                ...(options.headers || {}),
+                "Content-Type": "application/json"
+            }
+        }
+    );
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(
+            data.error || `Server error (${response.status})`
+        );
+    }
+
+    return data;
+}
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const bookingForm =
+    document.getElementById("bookingForm");
+
+const appointmentDate =
+    document.getElementById("appointmentDate");
+
+const bookingButton =
+    document.getElementById("bookingButton");
+
+const bookingMessage =
+    document.getElementById("bookingMessage");
+
+const adminModal =
+    document.getElementById("adminModal");
+
+const adminCodeInput =
+    document.getElementById("adminCode");
+
+const loginSection =
+    document.getElementById("loginSection");
+
+const availabilitySection =
+    document.getElementById("availabilitySection");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+const saveMessage =
+    document.getElementById("saveMessage");
+
+const newAvailableDate =
+    document.getElementById("newAvailableDate");
+
+const dateList =
+    document.getElementById("dateList");
+
+/* ==========================================
+   DATE FUNCTIONS
+========================================== */
+
+function getLocalToday() {
+
+    const today = new Date();
+
+    const year = today.getFullYear();
+
+    const month = String(
+        today.getMonth() + 1
+    ).padStart(2, "0");
+
+    const day = String(
+        today.getDate()
+    ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+newAvailableDate.min = getLocalToday();
+
+function formatDate(date) {
+
+    return new Date(date + "T12:00:00").toLocaleDateString(
+        undefined,
+        {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }
+    );
+}
+
+function showMessage(element, message, type) {
+
+    element.textContent = message;
+
+    element.className = "message " + type;
+}
+
+function clearMessage(element) {
+
+    element.textContent = "";
+
+    element.className = "message";
+}
+
+/* ==========================================
+   LOAD CUSTOMER AVAILABLE DATES
+========================================== */
+
+async function loadAvailableDates() {
+
+    appointmentDate.innerHTML =
+        '<option value="">Loading available dates...</option>';
+
+    try {
+
+        const data = await apiRequest("/api/dates");
+
+        const dates = (data.dates || [])
+            .filter(date => date >= getLocalToday())
+            .sort();
+
+        appointmentDate.innerHTML = "";
+
+        if (dates.length === 0) {
+
+            appointmentDate.innerHTML =
+                '<option value="">No available dates yet</option>';
+
+            return;
+        }
+
+        appointmentDate.innerHTML =
+            '<option value="">Choose an available date</option>';
+
+        dates.forEach(date => {
+
+            const option = document.createElement("option");
+
+            option.value = date;
+
+            option.textContent = formatDate(date);
+
+            appointmentDate.appendChild(option);
+
+        });
+
+    } catch (error) {
+
+        console.error("Could not load dates:", error);
+
+        appointmentDate.innerHTML =
+            '<option value="">Unable to load dates. Please refresh.</option>';
+
+    }
+}
+
+/* ==========================================
+   CUSTOMER BOOKING
+========================================== */
+
+bookingForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    clearMessage(bookingMessage);
+
+    const booking = {
+
+        name: document
+            .getElementById("customerName")
+            .value.trim(),
+
+        email: document
+            .getElementById("customerEmail")
+            .value.trim(),
+
+        phone: document
+            .getElementById("customerPhone")
+            .value.trim(),
+
+        service: "Braid - $60",
+
+        date: appointmentDate.value
+
+    };
+
+    if (!booking.date) {
+
+        showMessage(
+            bookingMessage,
+            "Please choose an available appointment date.",
+            "error"
+        );
+
+        return;
+    }
+
+    bookingButton.disabled = true;
+
+    bookingButton.textContent = "Processing...";
+
+    try {
+
+        const result = await apiRequest(
+            "/api/bookings",
+            {
+                method: "POST",
+                body: JSON.stringify(booking)
+            }
+        );
+
+        showMessage(
+            bookingMessage,
+            result.message || "Your appointment has been booked successfully.",
+            "success"
+        );
+
+        bookingForm.reset();
+
+        await loadAvailableDates();
+
+    } catch (error) {
+
+        showMessage(
+            bookingMessage,
+            error.message,
+            "error"
+        );
+
+        await loadAvailableDates();
+
+    } finally {
+
+        bookingButton.disabled = false;
+
+        bookingButton.textContent = "Confirm Appointment";
+
+    }
+
+});
+
+/* ==========================================
+   OPEN ADMIN WINDOW
+========================================== */
+
+document
+    .getElementById("adminTrigger")
+    .addEventListener("click", function() {
+
+        adminModal.style.display = "flex";
+
+        clearMessage(loginMessage);
+
+        clearMessage(saveMessage);
+
+    });
+
+/* ==========================================
+   CLOSE ADMIN WINDOW
+========================================== */
+
+document
+    .getElementById("closeAdmin")
+    .addEventListener("click", function() {
+
+        adminModal.style.display = "none";
+
+    });
+
+adminModal.addEventListener("click", function(event) {
+
+    if (event.target === adminModal) {
+
+        adminModal.style.display = "none";
+
+    }
+
+});
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        adminModal.style.display = "none";
+
+    }
+
+});
+
+/* ==========================================
+   ADMIN ACCESS VERIFICATION
+========================================== */
+
+document
+    .getElementById("verifyAdmin")
+    .addEventListener("click", async function() {
+
+        clearMessage(loginMessage);
+
+        const code = adminCodeInput.value.trim();
+
+        if (!code) {
+
+            showMessage(
+                loginMessage,
+                "Please enter your access code.",
+                "error"
+            );
+
+            return;
+        }
+
+        const verifyButton =
+            document.getElementById("verifyAdmin");
+
+        verifyButton.disabled = true;
+
+        verifyButton.textContent = "Verifying...";
+
+        try {
+
+            /*
+             * The GET request checks the code
+             * without changing or deleting dates.
+             */
+
+            const data = await apiRequest(
+                "/api/admin/dates",
+                {
+                    method: "GET",
+                    headers: {
+                        "x-admin-code": code
+                    }
+                }
+            );
+
+            adminCodeValue = code;
+
+            adminDates = [...(data.dates || [])];
+
+            loginSection.style.display = "none";
+
+            availabilitySection.style.display = "block";
+
+            renderAdminDates();
+
+            clearMessage(saveMessage);
+
+        } catch (error) {
+
+            console.error("Admin verification error:", error);
+
+            showMessage(
+                loginMessage,
+                error.message === "Failed to fetch"
+                    ? "Cannot connect to the server. Please check your internet connection and try again."
+                    : error.message,
+                "error"
+            );
+
+        } finally {
+
+            verifyButton.disabled = false;
+
+            verifyButton.textContent = "Verify Access";
+
+        }
+
+    });
+
+/* ==========================================
+   DISPLAY ADMIN DATES
+========================================== */
+
+function renderAdminDates() {
+
+    dateList.innerHTML = "";
+
+    if (adminDates.length === 0) {
+
+        dateList.textContent = "No available dates added yet.";
+
+        return;
+    }
+
+    adminDates.forEach(date => {
+
+        const row = document.createElement("div");
+
+        row.className = "date-row";
+
+        const dateName = document.createElement("span");
+
+        dateName.textContent = formatDate(date);
+
+        const removeButton = document.createElement("button");
+
+        removeButton.type = "button";
+
+        removeButton.className = "remove-button";
+
+        removeButton.textContent = "Remove";
+
+        removeButton.addEventListener("click", function() {
+
+            adminDates = adminDates.filter(
+                savedDate => savedDate !== date
+            );
+
+            renderAdminDates();
+
+            clearMessage(saveMessage);
+
+        });
+
+        row.appendChild(dateName);
+
+        row.appendChild(removeButton);
+
+        dateList.appendChild(row);
+
+    });
+
+}
+
+/* ==========================================
+   ADD AVAILABLE DATE
+========================================== */
+
+document
+    .getElementById("addDate")
+    .addEventListener("click", function() {
+
+        clearMessage(saveMessage);
+
+        const date = newAvailableDate.value;
+
+        if (!date) {
+
+            showMessage(
+                saveMessage,
+                "Please select a date.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (date < getLocalToday()) {
+
+            showMessage(
+                saveMessage,
+                "Please select today or a future date.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (adminDates.includes(date)) {
+
+            showMessage(
+                saveMessage,
+                "This date has already been added.",
+                "error"
+            );
+
+            return;
+        }
+
+        adminDates.push(date);
+
+        adminDates.sort();
+
+        newAvailableDate.value = "";
+
+        renderAdminDates();
+
+        showMessage(
+            saveMessage,
+            "Date added. Click Save Available Dates to publish it.",
+            "success"
+        );
+
+    });
+
+/* ==========================================
+   SAVE AVAILABLE DATES TO RENDER
+========================================== */
+
+document
+    .getElementById("saveDates")
+    .addEventListener("click", async function() {
+
+        clearMessage(saveMessage);
+
+        const saveButton =
+            document.getElementById("saveDates");
+
+        saveButton.disabled = true;
+
+        saveButton.textContent = "Saving...";
+
+        try {
+
+            const result = await apiRequest(
+                "/api/admin/dates",
+                {
+                    method: "POST",
+                    headers: {
+                        "x-admin-code": adminCodeValue
+                    },
+                    body: JSON.stringify({
+                        dates: adminDates
+                    })
+                }
+            );
+
+            adminDates = [...(result.dates || [])];
+
+            renderAdminDates();
+
+            showMessage(
+                saveMessage,
+                "Your available dates have been saved successfully!",
+                "success"
+            );
+
+            await loadAvailableDates();
+
+        } catch (error) {
+
+            console.error("Saving dates error:", error);
+
+            showMessage(
+                saveMessage,
+                error.message,
+                "error"
+            );
+
+        } finally {
+
+            saveButton.disabled = false;
+
+            saveButton.textContent = "Save Available Dates";
+
+        }
+
+    });
+
+/* ==========================================
+   ADMIN LOGOUT
+========================================== */
+
+document
+    .getElementById("logoutAdmin")
+    .addEventListener("click", function() {
+
+        adminCodeValue = "";
+
+        adminDates = [];
+
+        adminCodeInput.value = "";
+
+        loginSection.style.display = "block";
+
+        availabilitySection.style.display = "none";
+
+        clearMessage(loginMessage);
+
+        clearMessage(saveMessage);
+
+    });
+
+/* ==========================================
+   START WEBSITE
+========================================== */
+
+loadAvailableDates();
+
+</script>
+
+</body>
+</html>
